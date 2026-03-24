@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winstreak Modz — GTA V • Upagem Profissional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rgb: #ff0000;
+      --rgb-glow: rgba(255, 0, 0, 0.6);
+      --rgb-mid: rgba(255, 0, 0, 0.3);
+      --rgb-low: rgba(255, 0, 0, 0.12);
+      --rgb-faint: rgba(255, 0, 0, 0.06);
+      --bg: #000000;
+      --surface: rgba(12, 4, 4, 0.7);
+      --text: #f5f0f0;
+      --muted: #a0a0a0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @keyframes rgbSpin {
+      from { filter: hue-rotate(0deg); }
+      to   { filter: hue-rotate(360deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+    @keyframes slideDown {
+      0%   { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateX(40px) translateY(20px); }
+      to   { opacity: 1; transform: translateX(0) translateY(0); }
+    }
+    @keyframes metallicShine {
+      0%   { background-position: 0% 0%; }
+      50%  { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+    @keyframes gradientFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes rotateRays {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes starPulse {
+      0%, 100% { text-shadow: 0 0 8px #ffd700, 0 0 20px #ffd700; transform: scale(1); }
+      50%       { text-shadow: 0 0 15px #ffd700, 0 0 40px #ffaa00; transform: scale(1.08); }
+    }
+    @keyframes scrollLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes scrollRight {
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Exo 2', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.5;
+      min-height: 100vh;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    /* ===== FUNDO ===== */
+    #bgCanvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -3; pointer-events: none;
+      animation: rgbSpin 6s linear infinite;
+    }
+    #bgOverlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: repeating-linear-gradient(45deg, rgba(0,0,0,0.5) 0px, rgba(0,0,0,0.5) 2px, transparent 2px, transparent 8px);
+      pointer-events: none; z-index: -2; opacity: 0.3;
+    }
+    #lightRays {
+      position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(255,0,0,0.07) 0%, transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(255,80,0,0.05) 0%, transparent 45%),
+        radial-gradient(circle at 20% 80%, rgba(200,0,0,0.04) 0%, transparent 50%);
+      animation: rotateRays 80s linear infinite;
+      z-index: -1; pointer-events: none;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 80px;
+      background: rgba(4,0,0,0.85);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid rgba(255,0,0,0.35);
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,0,0,0.1) inset;
+      animation: slideDown 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .logo { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+    .logo-text {
+      font-family: 'Bebas Neue', cursive; font-size: 36px; letter-spacing: 4px;
+      background: linear-gradient(135deg, #ffffff, #ff4444, #ffffff);
+      background-size: 200% 200%; -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: metallicShine 4s ease infinite, rgbSpin 6s linear infinite;
+      filter: drop-shadow(0 2px 4px #00000080) hue-rotate(0deg);
+    }
+    .logo-pill {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--rgb-low); border: 1px solid rgba(255,0,0,0.5);
+      border-radius: 40px; padding: 6px 18px;
+      font-family: 'DM Mono', monospace; font-size: 12px; color: var(--rgb);
+      text-transform: uppercase; letter-spacing: 2px;
+      box-shadow: 0 0 12px var(--rgb-mid); animation: rgbSpin 6s linear infinite;
+    }
+    .pill-dot {
+      width: 10px; height: 10px; background: var(--rgb); border-radius: 50%;
+      box-shadow: 0 0 10px var(--rgb);
+      animation: pulse 2s infinite, rgbSpin 6s linear infinite;
+    }
+
+    nav { display: flex; gap: 8px; align-items: center; }
+    nav a {
+      font-family: 'DM Mono', monospace; font-size: 14px;
+      text-decoration: none; padding: 10px 20px;
+      color: var(--muted); border: 1px solid transparent;
+      border-radius: 30px; transition: all 0.3s ease;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    nav a:hover {
+      color: #fff; border-color: rgba(255,0,0,0.6); background: var(--rgb-low);
+      box-shadow: 0 0 20px var(--rgb-mid); animation: rgbSpin 3s linear infinite;
+    }
+    nav a.nav-hi {
+      color: var(--rgb); border-color: var(--rgb); background: var(--rgb-low);
+      box-shadow: 0 0 18px var(--rgb-mid); animation: rgbSpin 3s linear infinite;
+    }
+    nav a.nav-hi:hover {
+      background: var(--rgb); color: #000; box-shadow: 0 0 35px var(--rgb-glow);
+    }
+
+    /* ===== BOTÃO AVALIAÇÕES — destaque especial ouro ===== */
+    nav a.nav-reviews {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #111;
+      border: none;
+      background: linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00);
+      box-shadow: 0 0 18px rgba(255,200,0,0.6), 0 4px 16px rgba(0,0,0,0.5);
+      padding: 11px 22px;
+      filter: none !important;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      animation: none !important;
+    }
+    nav a.nav-reviews::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+    nav a.nav-reviews:hover::before { left: 100%; }
+    nav a.nav-reviews:hover {
+      background: linear-gradient(135deg, #ffe84d, #ffd700, #ffaa00);
+      color: #000;
+      box-shadow: 0 0 35px rgba(255,210,0,0.85), 0 6px 24px rgba(0,0,0,0.6);
+      transform: scale(1.07) translateY(-1px);
+      animation: none !important;
+      filter: none !important;
+    }
+
+    /* ===== MAIN ===== */
+    main { padding-top: 100px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 5; }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 50px; align-items: center;
+      min-height: calc(100vh - 100px); padding: 40px 30px;
+    }
+    .hero-left { position: relative; }
+    .h-tag {
+      display: inline-flex; align-items: center; gap: 14px;
+      background: var(--rgb-faint); border: 1px solid rgba(255,0,0,0.35);
+      border-radius: 50px; padding: 10px 25px; margin-bottom: 40px;
+      font-family: 'DM Mono', monospace; font-size: 13px; color: var(--rgb);
+      text-transform: uppercase; letter-spacing: 2px;
+      backdrop-filter: blur(8px); box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      animation: rgbSpin 6s linear infinite;
+    }
+    .h-tag span:first-child {
+      width: 10px; height: 10px; background: var(--rgb); border-radius: 50%;
+      box-shadow: 0 0 15px var(--rgb); animation: blink 2s infinite, rgbSpin 6s linear infinite;
+    }
+    .hero-h1 {
+      font-family: 'Bebas Neue', cursive; font-size: clamp(70px,12vw,140px);
+      line-height: 0.8; text-transform: uppercase; margin-bottom: 25px;
+    }
+    .hero-h1 .t1 {
+      display: block;
+      background: linear-gradient(135deg, #ffffff, #ff2222, #ff8800, #ffffff);
+      background-size: 300% 300%; -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 4s ease infinite, rgbSpin 6s linear infinite;
+      filter: drop-shadow(0 10px 15px #00000060) drop-shadow(0 0 20px rgba(255,0,0,0.5)) hue-rotate(0deg);
+      letter-spacing: 2px;
+    }
+    .hero-h1 .t2 {
+      display: block; font-size: 0.45em; color: transparent;
+      background: linear-gradient(135deg, #b0b0b0, #707070);
+      -webkit-background-clip: text; letter-spacing: 18px;
+    }
+    .hero-desc {
+      font-size: 16px; color: var(--muted); max-width: 500px;
+      margin-bottom: 45px; line-height: 1.9; font-family: 'DM Mono', monospace;
+    }
+    .hero-desc b { color: var(--rgb); animation: rgbSpin 6s linear infinite; }
+    .hero-btns { display: flex; gap: 25px; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: 'Bebas Neue', cursive; font-size: 20px; letter-spacing: 3px;
+      padding: 16px 42px; background: linear-gradient(145deg,#1a0000,#0a0000);
+      border: 2px solid var(--rgb); color: var(--rgb); text-transform: uppercase;
+      cursor: pointer; border-radius: 60px; position: relative; overflow: hidden;
+      transition: all 0.3s; box-shadow: 0 5px 15px #000000a0, 0 0 25px rgba(255,0,0,0.2);
+      animation: rgbSpin 6s linear infinite;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,0,0,0.35), transparent);
+      transition: left 0.6s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover { background: #1a0000; color: #fff; transform: scale(1.05); box-shadow: 0 10px 30px #000000c0, 0 0 50px rgba(255,0,0,0.7); }
+    .btn-secondary {
+      font-family: 'Bebas Neue', cursive; font-size: 20px; letter-spacing: 3px;
+      padding: 16px 42px; background: transparent; border: 2px solid #555;
+      color: var(--muted); text-transform: uppercase; cursor: pointer;
+      border-radius: 60px; transition: all 0.3s; backdrop-filter: blur(5px);
+    }
+    .btn-secondary:hover {
+      border-color: var(--rgb); color: var(--rgb); background: var(--rgb-low);
+      transform: scale(1.05); box-shadow: 0 0 30px rgba(255,0,0,0.4);
+      animation: rgbSpin 3s linear infinite;
+    }
+
+    /* ===== PAINEL LATERAL ===== */
+    .hero-right { animation: floatIn 1s ease-out; }
+    .panel {
+      background: rgba(10,2,2,0.7); backdrop-filter: blur(25px) saturate(200%);
+      -webkit-backdrop-filter: blur(25px) saturate(200%);
+      border: 1px solid rgba(255,0,0,0.35); border-radius: 28px; overflow: hidden;
+      box-shadow: 0 30px 60px #000000c0, 0 0 0 1px rgba(255,0,0,0.15) inset, 0 0 30px rgba(255,0,0,0.15);
+      transition: box-shadow 0.3s; animation: rgbSpin 6s linear infinite;
+    }
+    .panel:hover { box-shadow: 0 40px 80px #000000e0, 0 0 0 2px rgba(255,0,0,0.3) inset, 0 0 50px rgba(255,0,0,0.35); }
+    .panel-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 28px; background: rgba(255,0,0,0.1);
+      border-bottom: 2px solid rgba(255,0,0,0.3);
+    }
+    .panel-label { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--rgb); text-transform: uppercase; letter-spacing: 3px; font-weight: 500; text-shadow: 0 0 10px rgba(255,0,0,0.7); }
+    .panel-live { display: flex; align-items: center; gap: 8px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 13px; text-transform: uppercase; }
+    .prow {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 28px; border-bottom: 1px solid rgba(255,0,0,0.12);
+      text-decoration: none; color: inherit; transition: all 0.25s; cursor: pointer;
+    }
+    .prow:last-of-type { border-bottom: none; }
+    .prow:hover { background: rgba(255,0,0,0.1); padding-left: 35px; box-shadow: 0 0 20px rgba(255,0,0,0.15) inset; }
+    .prow.hi { background: rgba(255,0,0,0.18); border-left: 5px solid var(--rgb); box-shadow: 0 0 25px rgba(255,0,0,0.25); }
+    .prow-name { font-family: 'Bebas Neue', cursive; font-size: 24px; letter-spacing: 1.5px; color: #f0e0e0; }
+    .prow.hi .prow-name { color: var(--rgb); text-shadow: 0 0 15px var(--rgb); animation: rgbSpin 6s linear infinite; }
+    .prow-right { display: flex; align-items: center; gap: 18px; }
+    .ptag { font-family: 'DM Mono', monospace; font-size: 11px; padding: 5px 12px; border-radius: 30px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+    .ptag-hot { background: rgba(255,0,0,0.2); border: 1px solid var(--rgb); color: var(--rgb); box-shadow: 0 0 10px rgba(255,0,0,0.5); animation: rgbSpin 6s linear infinite; }
+    .ptag-gold { background: rgba(255,60,0,0.15); border: 1px solid #ff4422; color: #ff6644; animation: rgbSpin 6s linear infinite; }
+    .ptag-dim { background: rgba(140,140,140,0.1); border: 1px solid #555; color: var(--muted); }
+    .prow-price { font-family: 'Bebas Neue', cursive; font-size: 26px; color: #ff5544; text-shadow: 0 0 15px rgba(255,80,60,0.6); min-width: 80px; text-align: right; animation: rgbSpin 6s linear infinite; }
+    .prow-price small { font-size: 15px; opacity: 0.7; margin-right: 2px; }
+    .panel-foot { padding: 18px 28px; border-top: 2px solid rgba(255,0,0,0.2); background: rgba(0,0,0,0.4); display: flex; align-items: center; gap: 15px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); text-transform: uppercase; }
+
+    /* ===== SEÇÃO PLANOS ===== */
+    .plans-sec { padding: 80px 30px 140px; text-align: center; }
+    .sec-eye { font-family: 'DM Mono', monospace; font-size: 15px; color: var(--rgb); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 15px; text-shadow: 0 0 15px rgba(255,0,0,0.7); animation: rgbSpin 6s linear infinite; }
+    .sec-title { font-family: 'Bebas Neue', cursive; font-size: clamp(48px,7vw,80px); text-transform: uppercase; color: #f0e0e0; text-shadow: 3px 3px 0 #1a0000, 0 0 30px rgba(255,0,0,0.6); margin-bottom: 15px; letter-spacing: 2px; }
+    .sec-sub { font-family: 'DM Mono', monospace; font-size: 15px; color: #777; margin-bottom: 60px; }
+    .plans { display: flex; flex-direction: column; gap: 20px; max-width: 750px; margin: 0 auto; }
+    .plan {
+      background: rgba(10,2,2,0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(255,0,0,0.3); border-radius: 30px; overflow: hidden;
+      cursor: pointer; transition: all 0.35s; position: relative;
+      box-shadow: 0 20px 40px #000000c0, 0 0 0 1px rgba(255,0,0,0.08) inset;
+      animation: rgbSpin 6s linear infinite;
+    }
+    .plan:hover { transform: translateY(-8px) scale(1.02); border-color: rgba(255,0,0,0.7); box-shadow: 0 30px 60px #000000e0, 0 0 35px rgba(255,0,0,0.5); }
+    .plan.open { border-color: var(--rgb); box-shadow: 0 20px 50px #000000, 0 0 60px rgba(255,0,0,0.6); }
+    .plan.star { border-color: #ff3333; background: linear-gradient(145deg, rgba(255,0,0,0.12), rgba(10,2,2,0.85)); }
+    .plan.star::after {
+      content: '🔥 MAIS VENDIDO'; position: absolute; top: 18px; right: -35px;
+      background: var(--rgb); color: #000; font-family: 'Bebas Neue', cursive;
+      font-size: 14px; padding: 6px 50px; transform: rotate(35deg);
+      box-shadow: 0 5px 15px #000000a0; z-index: 10; letter-spacing: 2px; font-weight: bold;
+    }
+    .plan-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: rgba(255,0,0,0.1); border-bottom: 2px solid rgba(255,0,0,0.3); }
+    .plan-name { font-family: 'Bebas Neue', cursive; font-size: 30px; color: #f0e0e0; }
+    .plan-right { display: flex; align-items: center; gap: 18px; }
+    .badge { font-family: 'DM Mono', monospace; font-size: 13px; padding: 6px 14px; border-radius: 30px; text-transform: uppercase; }
+    .b-hot { background: rgba(255,0,0,0.25); border: 1px solid var(--rgb); color: var(--rgb); animation: rgbSpin 6s linear infinite; }
+    .b-gold { background: rgba(255,60,0,0.18); border: 1px solid #ff4422; color: #ff6644; animation: rgbSpin 6s linear infinite; }
+    .b-dim { background: rgba(140,140,140,0.1); border: 1px solid #555; color: var(--muted); }
+    .arrow {
+      width: 36px; height: 36px; border: 2px solid var(--rgb); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--rgb); transition: all 0.4s; background: rgba(0,0,0,0.3);
+      animation: rgbSpin 6s linear infinite;
+    }
+    .plan.open .arrow { transform: rotate(180deg); border-color: #ff5533; color: #ff5533; box-shadow: 0 0 20px rgba(255,80,50,0.6); }
+    .plan-sep { height: 2px; background: linear-gradient(90deg, transparent, rgba(255,0,0,0.6), transparent); margin: 0 28px; }
+    .plan.open .plan-sep { opacity: 0; }
+    .plan-body { max-height: 0; overflow: hidden; opacity: 0; padding: 0 28px; transition: all 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .plan.open .plan-body { max-height: 600px; opacity: 1; padding: 20px 28px 28px; }
+    .feat { display: flex; align-items: flex-start; gap: 15px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 15px; padding: 8px 0; }
+    .feat::before { content: '⏺'; color: var(--rgb); font-size: 12px; filter: drop-shadow(0 0 8px var(--rgb)); margin-top: 4px; animation: rgbSpin 6s linear infinite; }
+    .plan-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 25px; border-top: 2px solid rgba(255,0,0,0.3); }
+    .price { font-family: 'Bebas Neue', cursive; font-size: 48px; color: #ff5544; text-shadow: 0 0 25px rgba(255,80,60,0.8); line-height: 1; animation: rgbSpin 6s linear infinite; }
+    .price small { font-size: 20px; opacity: 0.7; margin-right: 3px; }
+    .buy-btn { font-family: 'Bebas Neue', cursive; font-size: 20px; padding: 12px 32px; background: transparent; border: 2px solid #ff5544; color: #ff5544; text-decoration: none; border-radius: 60px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 2px; animation: rgbSpin 6s linear infinite; }
+    .buy-btn:hover { background: var(--rgb); color: #000; box-shadow: 0 0 35px rgba(255,0,0,0.8); transform: scale(1.07); border-color: var(--rgb); }
+
+    /* ===== FAB ===== */
+    #fab {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg,#1a0000,#0a0000); border: 2px solid var(--rgb);
+      color: var(--rgb); font-family: 'Bebas Neue', cursive; font-size: 22px;
+      letter-spacing: 4px; padding: 18px 58px; border-radius: 70px; cursor: pointer;
+      z-index: 90; box-shadow: 0 15px 40px #000000d0, 0 0 40px rgba(255,0,0,0.6);
+      transition: all 0.3s; text-transform: uppercase; backdrop-filter: blur(10px);
+      animation: rgbSpin 6s linear infinite;
+    }
+    #fab:hover { transform: translateX(-50%) translateY(-5px); background: var(--rgb); color: #000; box-shadow: 0 20px 50px #000000, 0 0 80px var(--rgb); }
+
+    /* ===== MODAIS BASE ===== */
+    .modal {
+      position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(25px) saturate(200%);
+      -webkit-backdrop-filter: blur(25px) saturate(200%);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px;
+    }
+    .modal.open { opacity: 1; pointer-events: auto; }
+    .modal.open .mbox { transform: scale(1) translateY(0); opacity: 1; }
+    .mbox {
+      background: rgba(8,2,2,0.92); backdrop-filter: blur(20px);
+      border: 2px solid var(--rgb); border-radius: 30px;
+      max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 40px;
+      box-shadow: 0 40px 80px #000000, 0 0 60px rgba(255,0,0,0.5);
+      transform: scale(0.9) translateY(30px); opacity: 0;
+      transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      color: #e0d8d8; animation: rgbSpin 6s linear infinite;
+    }
+    .mbox h2 { font-family: 'Bebas Neue', cursive; font-size: 40px; margin-bottom: 25px; color: #f0e0e0; }
+    .mbox h2 em { color: var(--rgb); font-style: normal; text-shadow: 0 0 15px var(--rgb); animation: rgbSpin 6s linear infinite; }
+    .mbox p { font-family: 'DM Mono', monospace; font-size: 15px; line-height: 1.9; margin-bottom: 20px; color: #999; }
+    .mbox b { color: var(--rgb); animation: rgbSpin 6s linear infinite; }
+    .mnote { background: rgba(255,0,0,0.08); border: 1px solid var(--rgb); border-radius: 20px; padding: 25px; margin: 25px 0; }
+    .mnote b { color: var(--rgb); font-size: 18px; display: block; margin-bottom: 12px; animation: rgbSpin 6s linear infinite; }
+    .crows { display: flex; flex-direction: column; gap: 15px; margin: 25px 0; }
+    .crow { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,0,0,0.3); border-radius: 18px; padding: 18px 25px; transition: all 0.2s; }
+    .crow:hover { border-color: var(--rgb); background: var(--rgb-low); box-shadow: 0 0 25px rgba(255,0,0,0.3); }
+    .crow-lbl { font-family: 'DM Mono', monospace; font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 2px; }
+    .crow-val { font-family: 'Bebas Neue', cursive; font-size: 22px; color: #f0e0e0; }
+    /* FIX 1 — classe para valores que precisam ser minúsculos */
+    .crow-val-mono {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      color: #f0e0e0;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .c-green { color: #44ee66; text-shadow: 0 0 10px rgba(60,220,100,0.5); }
+    .c-purple { color: var(--rgb); animation: rgbSpin 6s linear infinite; }
+    .mclose {
+      width: 100%; padding: 16px; background: transparent; border: 2px solid var(--rgb);
+      color: var(--rgb); font-family: 'Bebas Neue', cursive; font-size: 20px;
+      letter-spacing: 3px; border-radius: 60px; cursor: pointer; transition: all 0.3s;
+      margin-top: 25px; text-transform: uppercase; animation: rgbSpin 6s linear infinite;
+    }
+    .mclose:hover { background: var(--rgb); color: #000; box-shadow: 0 0 40px var(--rgb); }
+
+    /* ===== MODAL AVALIAÇÕES ===== */
+    @keyframes revModalIn {
+      0%   { opacity: 0; transform: translateY(60px) scale(0.94); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    @keyframes scanline {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+    @keyframes revGlow {
+      0%, 100% { box-shadow: 0 0 40px rgba(255,0,0,0.25), 0 60px 120px rgba(0,0,0,0.95); }
+      50%       { box-shadow: 0 0 70px rgba(255,0,0,0.45), 0 60px 120px rgba(0,0,0,0.95); }
+    }
+    @keyframes headerShine {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    #reviewsModal .mbox-reviews {
+      background: #040000;
+      border: 1px solid rgba(255,0,0,0.5);
+      border-top: 3px solid var(--rgb);
+      border-radius: 20px;
+      width: 100%; max-width: 1050px; max-height: 88vh;
+      padding: 0; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255,0,0,0.1) inset, 0 60px 120px rgba(0,0,0,0.95), 0 0 60px rgba(255,0,0,0.2);
+      transform: translateY(60px) scale(0.94); opacity: 0; filter: blur(8px);
+      transition: none;
+      position: relative;
+    }
+    #reviewsModal.open .mbox-reviews {
+      animation: revModalIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards, revGlow 4s ease-in-out 0.5s infinite;
+    }
+
+    #reviewsModal .mbox-reviews::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none; z-index: 100;
+      background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(255,0,0,0.015) 3px, rgba(255,0,0,0.015) 4px);
+      border-radius: 20px;
+    }
+
+    .rev-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 40px;
+      height: 90px;
+      background: linear-gradient(135deg, rgba(180,0,0,0.3) 0%, rgba(80,0,0,0.5) 50%, rgba(0,0,0,0.6) 100%);
+      border-bottom: 1px solid rgba(255,0,0,0.35);
+      position: relative; overflow: hidden;
+    }
+    .rev-head::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,60,0,0.12) 50%, transparent 60%);
+      background-size: 200% 100%;
+      animation: headerShine 4s linear infinite;
+    }
+    .rev-head-left { display: flex; align-items: center; gap: 18px; position: relative; z-index: 1; }
+    .rev-head-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #ff2200, #880000);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 20px rgba(255,0,0,0.5), 0 4px 15px rgba(0,0,0,0.6);
+      flex-shrink: 0;
+    }
+    .rev-head-text h2 {
+      font-family: 'Bebas Neue', cursive; font-size: 28px; color: #fff;
+      letter-spacing: 4px; margin: 0; line-height: 1;
+      text-shadow: 0 0 25px rgba(255,80,0,0.6);
+    }
+    .rev-head-text span {
+      font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,100,50,0.7);
+      text-transform: uppercase; letter-spacing: 3px;
+    }
+    .rev-counter {
+      display: flex; align-items: center; gap: 14px;
+      position: relative; z-index: 1;
+    }
+    .rev-stat {
+      text-align: center;
+      background: rgba(255,0,0,0.08);
+      border: 1px solid rgba(255,0,0,0.3);
+      border-radius: 12px;
+      padding: 10px 20px;
+    }
+    .rev-stat-num {
+      font-family: 'Bebas Neue', cursive; font-size: 38px; line-height: 1;
+      color: var(--rgb);
+      text-shadow: 0 0 20px rgba(255,0,0,0.7);
+    }
+    .rev-stat-lbl {
+      font-family: 'DM Mono', monospace; font-size: 9px; color: #666;
+      text-transform: uppercase; letter-spacing: 2px; margin-top: 2px;
+    }
+    .rev-stars-total {
+      font-size: 20px; color: #ffd700; letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(255,200,0,0.5);
+    }
+
+    .rev-carousel-wrap {
+      overflow: hidden; padding: 16px 0; position: relative;
+    }
+    .rev-carousel-wrap::before,
+    .rev-carousel-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 10; pointer-events: none;
+    }
+    .rev-carousel-wrap::before { left: 0;  background: linear-gradient(to right, #040000 0%, transparent 100%); }
+    .rev-carousel-wrap::after  { right: 0; background: linear-gradient(to left,  #040000 0%, transparent 100%); }
+
+    .rev-track { display: flex; gap: 12px; width: max-content; }
+    .rev-track.row1 { animation: scrollLeft  50s linear infinite; }
+    .rev-track.row2 { animation: scrollRight 62s linear infinite; }
+
+    .rev-card {
+      flex-shrink: 0; width: 285px;
+      background: linear-gradient(145deg, rgba(30,4,4,0.9), rgba(10,0,0,0.95));
+      border: 1px solid rgba(255,0,0,0.2);
+      border-top: 1px solid rgba(255,80,0,0.35);
+      border-radius: 16px; padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 12px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .rev-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,60,0,0.6), transparent);
+    }
+    .rev-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--rgb), transparent);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .rev-card:hover { border-color: rgba(255,0,0,0.5); box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 20px rgba(255,0,0,0.15); }
+    .rev-card:hover::after { opacity: 1; }
+
+    .rev-card-badge {
+      position: absolute; top: 12px; right: 14px;
+      background: rgba(255,0,0,0.15); border: 1px solid rgba(255,0,0,0.4);
+      border-radius: 20px; padding: 2px 8px;
+      font-family: 'DM Mono', monospace; font-size: 8px;
+      color: rgba(255,80,40,0.9); letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    .rev-card-top { display: flex; align-items: center; gap: 12px; }
+    .rev-avatar {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      border: 1px solid rgba(255,0,0,0.4);
+      object-fit: cover;
+      background: rgba(255,0,0,0.1);
+      box-shadow: 0 0 12px rgba(255,0,0,0.2);
+    }
+    .rev-user { flex: 1; min-width: 0; }
+    .rev-name {
+      font-family: 'Bebas Neue', cursive; font-size: 17px; color: #f5eeee;
+      letter-spacing: 1.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .rev-stars { color: #ffd700; font-size: 11px; letter-spacing: 3px; margin-top: 2px; }
+
+    .rev-divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,0,0,0.3), rgba(255,0,0,0.08), transparent);
+    }
+
+    .rev-msg {
+      font-family: 'DM Mono', monospace; font-size: 12px; color: #999;
+      line-height: 1.8; flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .rev-proof {
+      width: 100%; border-radius: 10px; object-fit: cover; max-height: 110px;
+      border: 1px solid rgba(255,0,0,0.2); opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .rev-proof:hover { opacity: 1; }
+
+    .rev-foot { display: flex; align-items: center; }
+    .rev-plan-tag {
+      font-family: 'DM Mono', monospace; font-size: 9px; padding: 3px 10px;
+      border-radius: 20px; background: rgba(255,0,0,0.12); border: 1px solid rgba(255,0,0,0.35);
+      color: #ff4422; text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    .rev-close-btn {
+      display: block; width: calc(100% - 80px); margin: 6px auto 24px;
+      padding: 13px; cursor: pointer; transition: all 0.3s;
+      text-transform: uppercase; letter-spacing: 4px;
+      font-family: 'Bebas Neue', cursive; font-size: 16px;
+      background: rgba(255,0,0,0.08);
+      border: 1px solid rgba(255,0,0,0.4);
+      color: rgba(255,60,30,0.9);
+      border-radius: 60px;
+      position: relative; overflow: hidden;
+    }
+    .rev-close-btn::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,40,0,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .rev-close-btn:hover::before { left: 100%; }
+    .rev-close-btn:hover {
+      background: var(--rgb);
+      color: #000;
+      border-color: var(--rgb);
+      box-shadow: 0 0 40px rgba(255,0,0,0.7), 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    /* ===== FOOTER ===== */
+    footer { text-align: center; padding: 40px 30px; font-family: 'DM Mono', monospace; font-size: 13px; color: #444; text-transform: uppercase; letter-spacing: 3px; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #050000; }
+    ::-webkit-scrollbar-thumb { background: var(--rgb); border-radius: 10px; box-shadow: 0 0 10px var(--rgb); animation: rgbSpin 6s linear infinite; }
+
+    /* ===== FIX 2 — RESPONSIVO MOBILE ===== */
+    @media (max-width: 900px) {
+      header {
+        padding: 0 18px;
+        height: 64px;
+      }
+      .logo-text { font-size: 24px; letter-spacing: 2px; }
+      .logo-pill { display: none; }
+      nav { gap: 4px; }
+      nav a { font-size: 11px; padding: 7px 10px; letter-spacing: 0.5px; }
+
+      main { padding-top: 84px; }
+
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 24px 16px;
+        min-height: auto;
+        align-items: start;
+      }
+      .hero-h1 { font-size: clamp(38px, 9vw, 70px); margin-bottom: 14px; }
+      .h-tag { font-size: 10px; padding: 7px 14px; margin-bottom: 20px; }
+      .hero-desc { font-size: 12px; margin-bottom: 24px; }
+      .btn-primary, .btn-secondary { font-size: 15px; padding: 12px 22px; }
+
+      /* painel lateral — mantém visível ao lado */
+      .hero-right { display: block; }
+      .prow-name { font-size: 18px; }
+      .prow { padding: 14px 16px; }
+      .prow-price { font-size: 20px; min-width: 60px; }
+      .ptag { font-size: 9px; padding: 4px 8px; }
+      .panel-head { padding: 14px 16px; }
+      .panel-label { font-size: 10px; letter-spacing: 1px; }
+      .panel-foot { padding: 12px 16px; font-size: 10px; }
+
+      .plans-sec { padding: 50px 16px 100px; }
+      #fab { font-size: 16px; padding: 14px 32px; letter-spacing: 2px; }
+    }
+
+    @media (max-width: 540px) {
+      header { height: 56px; padding: 0 12px; }
+      .logo-text { font-size: 19px; }
+      nav a { font-size: 9px; padding: 6px 7px; }
+      nav a.nav-reviews { font-size: 10px; padding: 7px 10px; }
+
+      main { padding-top: 76px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 20px 14px;
+      }
+      /* painel visível abaixo do hero-left em telas muito pequenas */
+      .hero-right { order: -1; }
+
+      .hero-h1 { font-size: clamp(52px, 14vw, 80px); }
+      .h-tag { font-size: 10px; }
+      .hero-desc { font-size: 13px; }
+      .hero-btns { gap: 12px; }
+      .btn-primary, .btn-secondary { font-size: 16px; padding: 13px 26px; }
+
+      .prow { padding: 14px 18px; }
+      .prow-name { font-size: 20px; }
+      .prow-price { font-size: 22px; }
+
+      #fab { font-size: 15px; padding: 13px 28px; bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+  <div id="bgOverlay"></div>
+  <div id="lightRays"></div>
+
+  <header>
+    <a class="logo" href="#">
+      <span class="logo-text">WINSTREAK MODZ</span>
+      <span class="logo-pill"><span class="pill-dot"></span>online</span>
+    </a>
+    <nav>
+      <a href="#planos">Planos</a>
+      <a href="javascript:void(0)" id="openTerms">Termos</a>
+      <a href="javascript:void(0)" id="openReviews" class="nav-reviews">⭐ Avaliações</a>
+      <a href="javascript:void(0)" id="openContact" class="nav-hi">Contato</a>
+      <a href="https://www.youtube.com/@WSModdz" target="_blank">Canal</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <div class="h-tag">
+          <span></span> Somente PC · GTA Enhanced &amp; Legacy
+        </div>
+        <h1 class="hero-h1">
+          <span class="t1">Winstreak</span>
+          <span class="t2">Modz</span>
+        </h1>
+        <p class="hero-desc">
+          Sua conta do jeito que você sempre quis.<br>
+          <b>Dinheiro, level, veículos e unlocks</b> — configurados pra você, do jeito que você pedir.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="document.getElementById('planos').scrollIntoView({behavior:'smooth'})">Ver Planos →</button>
+          <button class="btn-secondary" onclick="openC()">Falar Agora</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-label">// planos disponíveis</span>
+            <div class="panel-live"><span class="pill-dot"></span> ao vivo</div>
+          </div>
+          <a href="javascript:void(0)" class="prow" onclick="jumpTo('starter')">
+            <span class="prow-name">Starter</span>
+            <div class="prow-right"><span class="ptag ptag-dim">Iniciante</span><span class="prow-price"><small>R$</small>20</span></div>
+          </a>
+          <a href="javascript:void(0)" class="prow hi" onclick="jumpTo('basic')">
+            <span class="prow-name">Basic</span>
+            <div class="prow-right"><span class="ptag ptag-hot">🔥 Mais Vendido</span><span class="prow-price"><small>R$</small>30</span></div>
+          </a>
+          <a href="javascript:void(0)" class="prow" onclick="jumpTo('standard')">
+            <span class="prow-name">Standard</span>
+            <div class="prow-right"><span class="ptag ptag-gold">Destaque</span><span class="prow-price"><small>R$</small>40</span></div>
+          </a>
+          <a href="javascript:void(0)" class="prow" onclick="jumpTo('premium')">
+            <span class="prow-name">Premium</span>
+            <div class="prow-right"><span class="ptag ptag-gold">Top</span><span class="prow-price"><small>R$</small>50</span></div>
+          </a>
+          <a href="javascript:void(0)" class="prow" onclick="jumpTo('custom')">
+            <span class="prow-name">Custom</span>
+            <div class="prow-right"><span class="ptag ptag-dim">Personalizado</span><span class="prow-price" style="font-size:18px;color:#777">consulta</span></div>
+          </a>
+          <div class="panel-foot"><span class="pill-dot"></span><span>Clique num plano para ver os detalhes</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plans-sec" id="planos">
+      <div class="sec-eye">// nossos planos</div>
+      <div class="sec-title">Escolha o seu plano</div>
+      <div class="sec-sub">clique para expandir</div>
+      <div class="plans">
+        <div class="plan" data-id="starter">
+          <div class="plan-head"><span class="plan-name">Starter</span><div class="plan-right"><span class="badge b-dim">Iniciante</span><div class="arrow">▼</div></div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-body">
+            <div class="feat">Corridinha &amp; Carregamento MOD</div>
+            <div class="feat">Unlocks essenciais</div>
+            <div class="feat">$ 30 milhões em conta</div>
+            <div class="feat">Level 120</div>
+            <div class="plan-foot"><div class="price"><small>R$</small>20</div><a href="javascript:void(0)" class="buy-btn" onclick="openC()">Adquirir</a></div>
+          </div>
+        </div>
+        <div class="plan star" data-id="basic">
+          <div class="plan-head"><span class="plan-name">Basic</span><div class="plan-right"><span class="badge b-hot">🔥 Mais Vendido</span><div class="arrow">▼</div></div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-body">
+            <div class="feat">Unlock-All</div>
+            <div class="feat">Trajes modded</div>
+            <div class="feat">Corridinha &amp; Carregamento MOD</div>
+            <div class="feat">5 veículos à sua escolha</div>
+            <div class="feat">$ 50 milhões em conta</div>
+            <div class="feat">Level 150</div>
+            <div class="plan-foot"><div class="price"><small>R$</small>30</div><a href="javascript:void(0)" class="buy-btn" onclick="openC()">Adquirir</a></div>
+          </div>
+        </div>
+        <div class="plan" data-id="standard">
+          <div class="plan-head"><span class="plan-name">Standard</span><div class="plan-right"><span class="badge b-gold">Destaque</span><div class="arrow">▼</div></div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-body">
+            <div class="feat">Unlock-All</div>
+            <div class="feat">Trajes modded</div>
+            <div class="feat">Corridinha &amp; Carregamento MOD</div>
+            <div class="feat">10 veículos à sua escolha</div>
+            <div class="feat">Status modificados (KD, Data de criação, Tempo jogado...)</div>
+            <div class="feat">$ 70 milhões em conta</div>
+            <div class="feat">Level 240</div>
+            <div class="plan-foot"><div class="price"><small>R$</small>40</div><a href="javascript:void(0)" class="buy-btn" onclick="openC()">Adquirir</a></div>
+          </div>
+        </div>
+        <div class="plan" data-id="premium">
+          <div class="plan-head"><span class="plan-name">Premium</span><div class="plan-right"><span class="badge b-gold">Top</span><div class="arrow">▼</div></div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-body">
+            <div class="feat">Unlock-All</div>
+            <div class="feat">Trajes modded</div>
+            <div class="feat">Corridinha &amp; Carregamento MOD</div>
+            <div class="feat">15 veículos à sua escolha</div>
+            <div class="feat">Status modificados (KD, Data de criação, Tempo jogado...)</div>
+            <div class="feat">$ 90 milhões em conta</div>
+            <div class="feat">Level 480</div>
+            <div class="plan-foot"><div class="price"><small>R$</small>50</div><a href="javascript:void(0)" class="buy-btn" onclick="openC()">Adquirir</a></div>
+          </div>
+        </div>
+        <div class="plan" data-id="custom">
+          <div class="plan-head"><span class="plan-name">Custom</span><div class="plan-right"><span class="badge b-gold">Personalizado</span><div class="arrow">▼</div></div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-body">
+            <div class="feat">Tudo montado do zero conforme a sua necessidade — negociado diretamente.</div>
+            <div class="plan-foot"><div class="price" style="font-size:22px;color:#666;text-shadow:none;animation:none">sob consulta</div><a href="javascript:void(0)" class="buy-btn" onclick="openC()">Negociar</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="fab" onclick="openC()">💬 Fale Conosco</button>
+
+  <!-- MODAL TERMOS -->
+  <div id="termsModal" class="modal">
+    <div class="mbox">
+      <h2><em>Termos</em> de Uso</h2>
+      <p>Ao realizar a upagem de sua conta conosco, recomendamos que siga o guia abaixo para manter sua conta protegida contra possíveis ações da Rockstar Games:</p>
+      <p>Para contas com até <b>R$ 80 milhões</b>, gaste no máximo <b>10 milhões por dia</b> durante os primeiros 3 dias. Após isso, pode usar com mais liberdade, sem exageros.</p>
+      <p>Para contas <b>acima de R$ 80 milhões</b>, limite-se a <b>10M por dia nos primeiros 7 dias</b>, depois <b>20M por dia</b> até zerar o saldo.</p>
+      <div class="mnote">
+        <b>⚠ Atenção</b>
+        <p>Ignorar este guia é considerado mau uso. Não nos responsabilizamos por banimentos decorrentes de abuso. Banimentos por mau uso não refletem a qualidade do nosso serviço.</p>
+      </div>
+      <p>Caso você siga todas as recomendações e ainda sofra alguma penalidade, <b>refazemos a upagem em outra conta gratuitamente</b>.</p>
+      <button class="mclose" onclick="closeM()">Fechar Termos</button>
+    </div>
+  </div>
+
+  <!-- MODAL CONTATO -->
+  <div id="contactModal" class="modal">
+    <div class="mbox">
+      <h2>Nossos <em>Contatos</em></h2>
+      <p>Fale diretamente com a gente para adquirir um plano ou tirar qualquer dúvida.</p>
+      <div class="crows">
+        <div class="crow"><span class="crow-lbl">WhatsApp</span><span class="crow-val c-green">+55 15 99128-5655</span></div>
+        <!-- FIX 1: crow-val-mono garante que "maribando1" apareça em minúsculo -->
+        <div class="crow"><span class="crow-lbl">Discord</span><span class="crow-val-mono c-purple">maribando1</span></div>
+        <div class="crow"><span class="crow-lbl">Servidor Discord</span><span class="crow-val c-purple">discord.gg/wyZy3gbBzJ</span></div>
+      </div>
+      <button class="mclose" onclick="closeM()">Fechar</button>
+    </div>
+  </div>
+
+  <!-- MODAL AVALIAÇÕES -->
+  <div id="reviewsModal" class="modal">
+    <div class="mbox-reviews">
+      <div class="rev-head">
+        <div class="rev-head-left">
+          <div class="rev-head-icon">⭐</div>
+          <div class="rev-head-text">
+            <h2>Avaliações dos Clientes</h2>
+            <span>Depoimentos reais — verificados no Discord</span>
+          </div>
+        </div>
+        <div class="rev-counter">
+          <div class="rev-stat">
+            <div class="rev-stat-num">26+</div>
+            <div class="rev-stat-lbl">clientes</div>
+          </div>
+          <div class="rev-stars-total">★★★★★</div>
+        </div>
+      </div>
+
+      <!-- ROW 1 -->
+      <div class="rev-carousel-wrap">
+        <div class="rev-track row1" id="row1"></div>
+      </div>
+      <!-- ROW 2 -->
+      <div class="rev-carousel-wrap">
+        <div class="rev-track row2" id="row2"></div>
+      </div>
+
+      <button class="rev-close-btn" onclick="closeM()">✕ Fechar Avaliações</button>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 Winstreak Modz · todos os direitos reservados</footer>
+
+  <script>
+    // ===== CANVAS =====
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: Math.random(), y: Math.random(),
+          radius: Math.random() * 4 + 1,
+          speedX: (Math.random() - 0.5) * 0.002,
+          speedY: (Math.random() - 0.5) * 0.001,
+          color: `rgba(255, ${Math.floor(Math.random()*60)}, 0, ${Math.random()*0.35+0.1})`,
+        });
+      }
+    }
+    initParticles();
+    function resizeCanvas() { width = canvas.width = innerWidth; height = canvas.height = innerHeight; }
+    resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+
+    function drawBackground() {
+      ctx.clearRect(0,0,width,height);
+      const g = ctx.createLinearGradient(0,0,width,height);
+      g.addColorStop(0,'#000000'); g.addColorStop(0.5,'#080000'); g.addColorStop(1,'#0f0000');
+      ctx.fillStyle = g; ctx.fillRect(0,0,width,height);
+      particles.forEach(p => {
+        p.x += p.speedX; p.y += p.speedY;
+        if(p.x<0)p.x=1; if(p.x>1)p.x=0; if(p.y<0)p.y=1; if(p.y>1)p.y=0;
+        ctx.beginPath(); ctx.arc(p.x*width, p.y*height, p.radius, 0, Math.PI*2);
+        ctx.fillStyle = p.color; ctx.fill();
+      });
+      ctx.fillStyle='rgba(0,0,0,0.2)'; ctx.fillRect(0,0,width,height);
+      requestAnimationFrame(drawBackground);
+    }
+    drawBackground();
+
+    // ===== PLANOS ACCORDION =====
+    function jumpTo(id) {
+      const el = document.querySelector(`.plan[data-id="${id}"]`);
+      if(el){ el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>el.classList.add('open'),500); }
+    }
+    document.querySelectorAll('.plan').forEach(p => {
+      p.addEventListener('click', function(e){ if(e.target.classList.contains('buy-btn'))return; this.classList.toggle('open'); });
+    });
+
+    // ===== MODAIS =====
+    const termsModal   = document.getElementById('termsModal');
+    const contactModal = document.getElementById('contactModal');
+    const reviewsModal = document.getElementById('reviewsModal');
+
+    function openTerms()   { termsModal.classList.add('open'); }
+    function openContact() { contactModal.classList.add('open'); }
+    function openReviews() { reviewsModal.classList.add('open'); }
+    function closeM() {
+      [termsModal, contactModal, reviewsModal].forEach(m => m.classList.remove('open'));
+    }
+
+    window.openC  = openContact;
+    window.closeM = closeM;
+
+    document.getElementById('openTerms').addEventListener('click', openTerms);
+    document.getElementById('openContact').addEventListener('click', openContact);
+    document.getElementById('openReviews').addEventListener('click', openReviews);
+
+    [termsModal, contactModal, reviewsModal].forEach(m => {
+      m.addEventListener('click', e => { if(e.target === m) closeM(); });
+    });
+
+    // ===== AVALIAÇÕES — dados =====
+    function discordAvatar(userId) {
+      return `https://dcdn.dstn.to/avatars/${userId}?size=128`;
+    }
+    function discordAvatarFallback(img, userId) {
+      try {
+        const idx = Number(BigInt(userId) >> 22n) % 6;
+        img.src = `https://cdn.discordapp.com/embed/avatars/${idx}.png`;
+      } catch(e) {
+        img.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+      }
+      img.onerror = null;
+    }
+
+    const reviews = [
+      { id:'857327532974014534', name:'leginn1',         msg:'Super confiável, tudo certinho, trajes, dinheiro e level, comprarei mais vezes!', plan:'Basic',    proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1461154193929932830/image.png' },
+      { id:'832063725980090368', name:'VICTORATO',       msg:'Eu adquiri o plano Basic, gostei bastante do atendimento do Awper hand, e ele upou muito rápido gostei demais nota 10', plan:'Basic' },
+      { id:'1272000711550304359',name:'Shana Berta',     msg:'Super confiável, upagem muito rápida e veio tudo certinho.', plan:'Basic',        proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1461877934963822602/gta.PNG' },
+      { id:'1235667015520485468',name:'naztra',          msg:'upagem 100% filé e muito confiável, tmj 🙏',                 plan:'',            proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1462272356067315733/image.png' },
+      { id:'752600935766949981', name:'guxxtta',         msg:'serviço muito top rapazeada, super confiável e atencioso',   plan:'',            proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1462581147992195174/rn_image_picker_lib_temp_ecf9f2a0-7e18-4bd4-b3fa-29267c87221d.jpg' },
+      { id:'673995648063897654', name:'Usuário Discord', msg:'Parabens vc sao mto fera no que fazer estou mto satisfeito pelo up da conta obg', plan:'' },
+      { id:'723569826999828530', name:'gato agiota',     msg:'Mano Marreta muito honesto, e realmente cai na conta e o trampo dele é limpo, podem confiar!!', plan:'', proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1463251293022720010/image.png' },
+      { id:'719284775575224350', name:'PINEDO',          msg:'Super bem atendido, me explicaram tudo, muito confiáveis, primeira compra de muitas ainda, recomendo a todo mundo 👍', plan:'' },
+      { id:'1459208419926867994',name:'solavi',          msg:'100% confiavel, marreta é gente fina, atendimento otimo, recomendo p geralll', plan:'', proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1463699896442949798/271590_18.jpg' },
+      { id:'1464013216295419937',name:'kenjiiqueda',     msg:'Me deixou alto demais kkkkkk Brabo demais Super recomendo, pode dar ate as senhas pra ele executar o mistério acontecer e ficar rico kkkkk', plan:'' },
+      { id:'1126620374201798687',name:'Gusta coco 77',   msg:'atendimento bom fez rapidinho',  plan:'' },
+      { id:'853030764521586771', name:'caverinha',       msg:'ÓTIMO ATENDIMENTO, MARRETA FAZ AS COISAS NA HORA', plan:'' },
+      { id:'1173397948332265523',name:'Vilão',           msg:'ÓTIMO ATENDIMENTO, MARRETA FAZ AS COISAS NA HORA', plan:'' },
+      { id:'602510116574461952', name:'PeuhX015 🐊',     msg:'Top dms slk',                    plan:'' },
+      { id:'324333049246384129', name:'Jr - Bolonha',    msg:'Recomendo muito, de confiança, podem aderir com segurança!', plan:'' },
+      { id:'951541367077765130', name:'Dan Winchester',  msg:'Recomendo o cara é de confiança, brabo demais. pode adquirir sem medo', plan:'' },
+      { id:'343413251524001792', name:'Cats',            msg:'tudo certo, ótimo atendimento e confiavel.', plan:'Premium' },
+      { id:'449004318973231104', name:'Olhapr4tras',     msg:'O cara é dez peguei 15m por missão e veio um chorinho ainda tmj', plan:'' },
+      { id:'940029083788644404', name:'lucas',           msg:'O cara é top de mais, rápidinho já colocou 100 milhões na conta top top, recomendo', plan:'', proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1466883881130135750/IMG-20260130-WA0134.jpg' },
+      { id:'465698131271483404', name:'Usuário Discord', msg:'100% confiável, segundo serviço que faço com ele, podem adquirir sem medo✅', plan:'', proof:'https://cdn.discordapp.com/attachments/1426915613749809172/1468397515379577027/IMG_3480.jpg' },
+      { id:'719284775575224350', name:'PINEDO',          msg:'Muito bom, terceira compra e recomendo a todos.', plan:'' },
+      { id:'324333049246384129', name:'Jr - Bolonha',    msg:'Segunda compra realizada, tudo nos conformes! 😄', plan:'' },
+      { id:'795775392975814676', name:'RalucaçoGranolaçoFake⭐', msg:'Muito foda, comprei o pacote básico e já melhorou minha vida, sinceramente o vendedor merece um prêmio Nobel por tamanha inteligência e disposição!', plan:'Basic' },
+      { id:'1422379813762502718',name:'Lorran',          msg:'100% , mlk é brabo!!', plan:'' },
+      { id:'545952202020225025', name:'Ivoleno_3Dmodeler',msg:'o melhor das notas, 100% confiavel', plan:'' },
+      { id:'1169748040379285686',name:'ZUBATINHO',       msg:'Recomendo 100% confiável muito obrigadooooo 🤍', plan:'' },
+    ];
+
+    function buildCard(r) {
+      const div = document.createElement('div');
+      div.className = 'rev-card';
+      const avatarSrc = discordAvatar(r.id);
+      div.innerHTML = `
+        <span class="rev-card-badge">✓ verificado</span>
+        <div class="rev-card-top">
+          <img class="rev-avatar" src="${avatarSrc}" alt="${r.name}" onerror="discordAvatarFallback(this,'${r.id}')">
+          <div class="rev-user">
+            <div class="rev-name">${r.name}</div>
+            <div class="rev-stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="rev-divider"></div>
+        <div class="rev-msg">${r.msg}</div>
+        ${r.proof ? `<img class="rev-proof" src="${r.proof}" alt="Prova" loading="lazy" onerror="this.style.display='none'">` : ''}
+        ${r.plan ? `<div class="rev-foot"><span class="rev-plan-tag">Plano ${r.plan}</span></div>` : ''}
+      `;
+      return div;
+    }
+
+    const half = Math.ceil(reviews.length / 2);
+    const row1Data = reviews.slice(0, half);
+    const row2Data = reviews.slice(half);
+
+    function fillTrack(trackEl, data) {
+      [...data, ...data].forEach(r => trackEl.appendChild(buildCard(r)));
+    }
+
+    fillTrack(document.getElementById('row1'), row1Data);
+    fillTrack(document.getElementById('row2'), row2Data);
+  </script>
+</body>
+</html>
